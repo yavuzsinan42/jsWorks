@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Dom Kavramı</title>
+    <style>
+        .container {
+            width: 400px;
+            height: 200px;
+            background-color: teal;
+            padding: 2rem 2rem;
+            font-size: 2rem;
+            color: white;
+        }
+        .link,
+        .link:visited {
+            text-decoration: none;
+            color: white;
+            font-weight: bold;
+            font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+        }
+        .link:hover {
+            color: #333;
+        }
+        .yazi {
+            font-size: 2rem;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="parent">
+        11111
+        <div class="child">
+            222222
+            <h3 class="item item-child">Merhaba</h3>
+            <h3 class="item item-child">Merhaba</h3>
+            <h3 class="item item-child">Merhaba</h3>
+            <h3 class="item item-child">Merhaba</h3>
+            <h3 class="item item-child">Merhaba</h3>
+        </div>
+    </div>
+
+    
+    <img src="makro-hali-yikama-logo7.png" width="10%" class="deneme">
+    <div class="container">
+        <form action="https://www.yavuzsinan.com" method="post" id="form">
+            <input id = "ad" type="text" placeholder="adınız">
+            <button type="button">Normal Buton</button>
+            <button type="reset">Temizle</button>
+            <button type="submit">Gönder</button>
+            <select name="sehir" id="sehir">
+                <option value="1">Ankara</option>
+                <option value="2">İzmir</option>
+
+            </select>
+        </form>
+        <a href="https://www.yavuzsinan.com" target="_blank" class="link">Blog sitem</a>
+        <p class="yazi">Merhaba</p>
+    </div>
+    <script src="deneme.js"></script>
+</body>
+
+</html>
