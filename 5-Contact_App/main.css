@@ -1,0 +1,27 @@
+.btn{
+    color: white;
+    font-size: 1.5rem;
+}
+.btn--edit{
+    background-color: #27ae60;
+    
+}
+
+.btn--delete{
+    background-color: #e74c3c;
+}
+
+.bilgi{
+    margin: 1rem 0;
+    padding: .5rem;
+    border-radius: 4px;
+    font-weight: 600;
+}
+
+.bilgi--success{
+    border: 1px solid green;
+}
+
+.bilgi--error{
+    border: 1px solid red;
+}
