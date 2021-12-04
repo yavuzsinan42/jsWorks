@@ -16,12 +16,19 @@
     padding: .5rem;
     border-radius: 4px;
     font-weight: 600;
+    opacity: 0;
+    transition:  .5s ease-in-out;
 }
 
 .bilgi--success{
     border: 1px solid green;
+    opacity: 1;
 }
 
 .bilgi--error{
     border: 1px solid red;
+    opacity: 1;
+}
+.far{
+    pointer-events: none;
 }

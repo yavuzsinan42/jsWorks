@@ -17,8 +17,9 @@
 <body>
     <div class="container">
         <h1>Rehber Uygulaması</h1>
-        <div class="bilgi bilgi--success">Başarılı</div>
-        <div class="bilgi bilgi--error">Hata Çıktı</div>
+        <div class="bilgi ">Başarılı</div>
+        <!-- 
+        <div class="bilgi bilgi--error">Hata Çıktı</div> -->
 
         <form id="form-rehber">
             <div>
@@ -34,7 +35,7 @@
                 <input type="text" id="mail" class="u-full-width">
             </div>
             <div>
-                <input type="submit" value="Kaydet" class="button-primary u-full-width">
+                <input type="submit" value="Kaydet" class="button-primary u-full-width kaydetGuncelle">
             </div>
         </form>
 
@@ -45,26 +46,17 @@
                 <tr>
                     <th>Ad</th>
                     <th>Soyad</th>
+                    <th>Mail</th>
                     <th>İşlem</th>
 
                 </tr>
             </thead>
-            <tbody>
-                <tr>
-                    <th>Yavuz </th>
-                    <th>Aydemir</th>
-                    <th>ysa@gmail.com</th>
-                    <th>
-                        <button class="btn btn--edit"><i class="fas fa-edit"></i></button>
-                        <button class="btn btn--delete"><i class="fas fa-trash"></i></button>          
-                    </th>
-
-
-                </tr>
+            <tbody class="kisi-listesi">
+               
             </tbody>
         </table>
     </div>
-    <script src="app.js"></script>
+    <script src="app2.js"></script>
 </body>
 
 </html>
