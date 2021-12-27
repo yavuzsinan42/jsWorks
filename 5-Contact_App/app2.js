@@ -60,16 +60,23 @@ class Ekran {
         }
     }
     kisiyiEkrandaGuncelle(kisi) {
-        this.depo.kisiGuncelle(kisi, this.secilenSatir.cells[2].textContent)
-        this.secilenSatir.cells[0].textContent= kisi.ad;
-        this.secilenSatir.cells[1].textContent= kisi.soyad;
-        this.secilenSatir.cells[2].textContent= kisi.mail;
-
-        this.depo.kisiGuncelle(kisi, this.secilenSatir.cells[2].textContent)
-        this.alanlariTemizle();
-        this.secilenSatir = undefined;
-        this.ekleGuncelleButon.value='Kaydet';
-        this.bilgiOlustur('Kişi Güncellendi!',true);
+       
+        const sonuc= this.depo.kisiGuncelle(kisi, this.secilenSatir.cells[2].textContent)
+        if(sonuc){
+            this.secilenSatir.cells[0].textContent= kisi.ad;
+            this.secilenSatir.cells[1].textContent= kisi.soyad;
+            this.secilenSatir.cells[2].textContent= kisi.mail;
+    
+            this.depo.kisiGuncelle(kisi, this.secilenSatir.cells[2].textContent)
+            this.alanlariTemizle();
+            this.secilenSatir = undefined;
+            this.ekleGuncelleButon.value='Kaydet';
+            this.bilgiOlustur('Kişi Güncellendi!',true);
+        }
+        else{
+            this.bilgiOlustur('Mail Zaten Kullanimda!',false);
+        }
+        
     }
     kisiyiEkrandanSil() {
         this.secilenSatir.remove();
@@ -110,10 +117,8 @@ class Ekran {
     document.querySelector('.container').insertBefore(olusturulanBilgi,this.form);
     //setTimeOut, setInterval
     setTimeout(() =>{ 
-        const silinecekDiv = document.querySelector('.bilgi');
-        if(silinecekDiv){
-            silinecekDiv.remove();
-        }
+        olusturulanBilgi.className='bilgi';
+       
     },2000)
     }
     kaydetGuncelle(e) {
@@ -124,7 +129,7 @@ class Ekran {
         
         if (sonuc) {
             if(!emailGecerliMi){
-                this.bilgiOlustur('Geçerli bir Mail Yaınız',false);
+                this.bilgiOlustur('Geçerli bir Mail Yazınız',false);
                 return;
             }
             if (this.secilenSatir) {
@@ -133,18 +138,25 @@ class Ekran {
 
             }
             else {
-                this.bilgiOlustur("İşlem Başarılı",true);
-                //Yeni Kişiyi Ekrana Ekler
-                this.kisiyiEkranaEkle(kisi);
-                //LocalStorage'a Ekler
-                this.depo.kisiEkle(kisi);
+                const sonuc = this.depo.kisiEkle(kisi);
+                
+                if(sonuc){
+                    this.bilgiOlustur("İşlem Başarılı",true);
+                    //Yeni Kişiyi Ekrana Ekler
+                    this.kisiyiEkranaEkle(kisi);
+                    //LocalStorage'a Ekler
+                    this.alanlariTemizle();
+                }
+                else{
+                    this.bilgiOlustur('Bu mail kullanimda',false);
+                }
             }
 
 
-            this.alanlariTemizle();
+            
         }
-        else {
-            console.log("Boş Alan Var");
+        else { //bazı alanlar eksik
+            this.bilgiOlustur('Boş alanları doldurunuz',false);
         }
     }
 }
@@ -153,6 +165,18 @@ class Depo {
     //uygulama ilk açıldığında verileri getirir.
     constructor() {
         this.tumKisiler = this.verileriGetir();
+    }
+    emailEssizMi(mail){
+        const sonuc = this.tumKisiler.find(kisi=>{
+            return kisi.mail ===mail;
+        });
+        if(sonuc){
+            console.log(mail+" kullanimda");
+            return false;
+        }
+        else{
+            return true;
+        }
     }
     verileriGetir() {
         let tumKisilerLocal;
@@ -165,8 +189,15 @@ class Depo {
         return tumKisilerLocal;
     }
     kisiEkle(kisi) {
-        this.tumKisiler.push(kisi); //class içindeki fonksiyonu çağırdığımız için this kullanıldı.
-        localStorage.setItem('tumKisiler', JSON.stringify(this.tumKisiler));
+        if(this.emailEssizMi(kisi.mail)){
+            this.tumKisiler.push(kisi); //class içindeki fonksiyonu çağırdığımız için this kullanıldı.
+            localStorage.setItem('tumKisiler', JSON.stringify(this.tumKisiler));
+            return true;
+        }
+        else{
+            return false;
+        }
+        
 
     }
     kisiSil(mail) {
@@ -178,11 +209,22 @@ class Depo {
         localStorage.setItem('tumKisiler', JSON.stringify(this.tumKisiler));
     }
     kisiGuncelle(guncelKisi, mail) {
-        this.tumKisiler.forEach((kisi, index) => {
-            if (kisi.mail === mail) {
-                this.tumKisiler[index] = guncelKisi;
-            }
-        })
+        if(this.emailEssizMi(guncelKisi.mail)){
+            console.log(guncelKisi.mail+' için kontrol yapılıyor');
+            this.tumKisiler.forEach((kisi, index) => {
+                if (kisi.mail === mail) {
+                    this.tumKisiler[index] = guncelKisi;
+                    localStorage.setItem('tumKisiler', JSON.stringify(this.tumKisiler));
+                    return true;
+                }
+            })
+            return true;
+        }
+        else{
+            console.log(guncelKisi.mail +" bu mail kullanimda");
+            return false;
+        }
+        
     }
 }
 
