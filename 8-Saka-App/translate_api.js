@@ -7,7 +7,7 @@ class TranslateApi{
             baseURL : this.baseURL,
             params:{
                 target: 'tr',
-                key: 'AIzaSyBSZXqk3JzJ1od86X5n-soqPK831lBdoGo2',
+                key: 'Add_Your_Api_Key',
                 q: this.aranacakCumle
             }
         });
